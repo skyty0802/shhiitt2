@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트 좌석 배치 프로그램</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 캡처 및 PDF 저장을 위한 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>좌석 배치 프로그램 V2.0</h1>
+        <div class="developer-tag">
+            developed by <span id="adminTrigger">kangty</span>
+        </div>
+
+        <div class="section">
+            <h2>1. 학생 등록</h2>
+            <div class="student-input-group">
+                <input type="text" id="studentName" placeholder="이름 또는 범위 (예: 1-25)">
+                <select id="preference">
+                    <option value="none">일반 (랜덤)</option>
+                    <option value="front">앞자리 우선 (첫 줄)</option>
+                    <option value="back">뒷자리 우선 (뒷 줄)</option>
+                </select>
+                <button onclick="addStudent()">추가</button>
+            </div>
+            <ul id="studentList"></ul>
+            <button id="clearAllStudentsBtn" onclick="clearStudents()">전체 삭제</button>
+        </div>
+
+        <div class="section">
+            <h2>2. 교실 구조 설정</h2>
+            <div class="input-row">
+                <label>행: <input type="number" id="rows" value="5" min="1"></label>
+                <label>열: <input type="number" id="cols" value="6" min="1"></label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="reverseLayout" onchange="toggleLayout()"> 창문/복도 반전
+                    </label>
+                    <label>
+                        <input type="checkbox" id="pairMode" onchange="generateMap()"> 짝꿍 모드
+                    </label>
+                </div>
+                <button onclick="generateMap()">지도 생성/초기화</button>
+            </div>
+            <p class="instruction">좌클릭: 안쓰는 좌석(X) | <strong>더블클릭: 고정석 지정</strong></p>
+            <div id="mainDeskWrapper" class="desk-map-wrapper">
+                <div class="label board-label">칠 판</div>
+                <div class="label aisle-label">복 도</div>
+                <div class="label window-label">창 문</div>
+                <div id="deskMapContainer" class="grid-layout"></div>
+            </div>
+        </div>
+
+        <div id="adminSection" class="section" style="display: none;">
+            <h2>3. 관계 설정 (친한/안 친한 친구)</h2>
+            <div class="student-input-group">
+                <input type="text" id="pair1" placeholder="학생1">
+                <input type="text" id="pair2" placeholder="학생2">
+                <button onclick="addConstraint('buddy')">친한 친구</button>
+                <button onclick="addConstraint('enemy')" style="background-color: #6c757d;">안 친한 친구</button>
+            </div>
+            <ul id="constraintList"></ul>
+        </div>
+
+        <button id="shuffleBtn" onclick="startShuffle()">좌석 배치 시작!</button>
+
+        <div id="resultSection" class="section" style="display:none; margin-top: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>최종 배치 결과</h2>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="saveAsImage()" style="background-color: #4b4b4b;">이미지로 저장</button>
+                    <button onclick="saveAsPDF()" style="background-color: #f3a63b;">PDF로 저장</button>
+                </div>
+            </div>
+            <p class="instruction" style="background: #e7f3ff; color: #1877f2; border-color: #1877f2;">
+                클릭: <strong>자리 교체</strong> | 더블클릭: <strong>이름 수정</strong>
+            </p>
+            <div id="captureArea" class="desk-map-wrapper">
+                <!-- 캡처 시 제목이 들어갈 공간 -->
+                <div id="captureTitle" style="display: none; text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #333;"></div>
+                <!-- 기존 구조 -->
+                <div id="resultContent"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

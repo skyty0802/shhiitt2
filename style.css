@@ -1,0 +1,85 @@
+body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 40px 20px;
+    color: #1c1e21;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 900px;
+}
+
+h1 { text-align: center; color: #1877f2; margin-bottom: 8px; }
+.developer-tag { text-align: center; margin-bottom: 40px; font-size: 0.9rem; color: #65676b; }
+#adminTrigger { cursor: pointer; font-weight: 600; text-decoration: underline; }
+
+.section {
+    background-color: #f7f8fa;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid #e4e6eb;
+}
+
+.instruction {
+    font-size: 0.85rem;
+    color: #65676b;
+    text-align: center;
+    margin-bottom: 15px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px dashed #ced4da;
+}
+
+.student-input-group, .input-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 15px; align-items: center; }
+.checkbox-group { display: flex; gap: 15px; font-size: 0.9rem; font-weight: 500; }
+.checkbox-group label { cursor: pointer; display: flex; align-items: center; gap: 5px; }
+
+input[type="text"], input[type="number"], select { padding: 12px; border-radius: 8px; border: 1px solid #dddfe2; outline: none; }
+button { background-color: #1877f2; color: white; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; padding: 12px 20px; border-radius: 8px; }
+button:hover { background-color: #166fe5; }
+
+#shuffleBtn { width: 100%; background-color: #42b72a; font-size: 1.2rem; padding: 18px; box-shadow: 0 4px 12px rgba(66, 183, 42, 0.3); margin-top: 20px; }
+
+#studentList, #constraintList {
+    list-style: none; padding: 0; background: #fff; border: 1px solid #dddfe2; border-radius: 8px; max-height: 250px; overflow-y: auto; margin-bottom: 10px;
+}
+#studentList li, #constraintList li { padding: 10px 15px; border-bottom: 1px solid #f0f2f5; display: flex; justify-content: space-between; align-items: center; }
+
+.front-pref-item { border-left: 6px solid #1877f2; background: #e7f3ff; }
+.back-pref-item { border-left: 6px solid #f02849; background: #ffebe9; }
+
+.desk-map-wrapper { position: relative; padding: 60px 80px; background: #fff; border-radius: 12px; border: 1px solid #dddfe2; overflow: auto; min-height: 200px; }
+.grid-layout { display: grid; gap: 15px; justify-content: center; width: max-content; margin: 0 auto; }
+
+.grid-layout.pair-active { column-gap: 0px; }
+.grid-layout.pair-active .desk-cell { border-radius: 4px; }
+.grid-layout.pair-active .desk-cell.pair-right { margin-right: 35px; }
+.grid-layout.pair-active .desk-cell.row-last { margin-right: 0; }
+
+.desk-cell { 
+    width: 80px; height: 70px; border: 2px solid #ced4da; display: flex; align-items: center; 
+    justify-content: center; border-radius: 10px; font-weight: 700; cursor: pointer; 
+    background: white; font-size: 13px; text-align: center; transition: all 0.1s; 
+    box-sizing: border-box;
+}
+.desk-cell:hover { background-color: #f0f2f5; z-index: 2; position: relative; border-color: #1877f2; }
+.desk-cell.unavailable { background-color: #ffebe9; border-color: #f02849; color: #f02849; border-style: dashed; }
+.desk-cell.fixed-seat { background-color: #e7f3ff; border-color: #1877f2; color: #1877f2; }
+
+.label { position: absolute; font-weight: 700; color: #8a8d91; font-size: 0.75rem; pointer-events: none; }
+.board-label { top: 20px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 5px 30px; border-radius: 20px; }
+.aisle-label { left: 20px; top: 50%; transform: translateY(-50%) rotate(-90deg); transition: 0.3s; }
+.window-label { right: 20px; top: 50%; transform: translateY(-50%) rotate(90deg); transition: 0.3s; }
+
+.desk-map-wrapper.reversed .aisle-label { left: auto; right: 20px; transform: translateY(-50%) rotate(90deg); }
+.desk-map-wrapper.reversed .window-label { right: auto; left: 20px; transform: translateY(-50%) rotate(-90deg); }
